@@ -61,9 +61,9 @@ export default {
     async runCreate() {
       this.loading = true
       this.CreateBtnText='Re Create'
-      await this.fetchImage()
       if (this.created)
         this.deleteImage()
+      await this.fetchImage()
       this.loading = false
       this.created = true
     },

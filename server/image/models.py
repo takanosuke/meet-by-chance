@@ -59,11 +59,12 @@ class ImageManager(models.Model):
         
     @classmethod
     def delete(cls, img_name):
-        img_path = RESULT_PATH / img_name
-        try:
-            img_path.unlink()
-        except FileNotFoundError as fnfe:
-            pass
+        img_id = img_name.split('_')[0]
+        for img_path in RESULT_PATH.glob(f'{img_id}*'):
+            try:
+                img_path.unlink()
+            except FileNotFoundError as fnfe:
+                print("Not exsit file!!!")
 
 def random_color(color, visibility):
     visibility = int(visibility/100*255)
