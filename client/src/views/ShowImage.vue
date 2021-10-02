@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <!-- 画面上部 -->
     <div class="text-center my-5">
       <div v-if="loading">
         <h3>Creating...</h3>
@@ -8,31 +9,93 @@
       <div v-else>
         <b-button size="lg" id="resultImage" variant="primary" v-on:click="runCreate">{{CreateBtnText}}</b-button>
         <b-button size="lg" v-b-toggle.parameter-sidebar>Parameter</b-button>
-        <ParameterSidebar></ParameterSidebar>
       </div>
     </div>
+    <!-- 画面下部 -->
     <div>
       <b-tabs>
         <b-tab v-for="f in frameList" :key="'tab-' + f.text" :title="f.text" v-on:click="changeFrame(f.value)"></b-tab>
           <!-- 表示する画像 -->
           <b-img class="mt-3 mb-3" :center="true" :src="imageUrl" v-if="created" />
-          <div class="text-center my-4" v-else>Please push "Create" button.</div>
+          <div class="text-center my-4" v-else><h3>Please push "Create" button.</h3></div>
           <!-- <h5>{{ imageName }}</h5> -->
           <!-- <a :href="imageUrl" download><b-button>Detail</b-button></a> -->
+        <!-- New Tab Button (Using tabs-end slot) -->
+        <template #tabs-end>
+          <b-nav-item role="presentation" @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
+        </template>
       </b-tabs>
+    </div>
+    <!-- その他 -->
+    <div>
+      <!-- パラメータサイドバー -->
+      <b-sidebar id="parameter-sidebar" title="Parameter" left shadow>
+        <div class="px-3 py-2">
+
+          <label>Density:</label>
+          <b-row>
+            <b-col sm="9">
+              <b-form-input type="range" min="1" max="100" v-model="density"></b-form-input>
+            </b-col>
+            <b-col sm="3">
+              <b-btn size="sm" v-on:click="density=50">Reset</b-btn>
+            </b-col>
+          </b-row>
+
+          <label>Color:</label>
+          <b-row>
+            <b-col sm="9">
+              <b-form-input type="range" min="1" max="100" v-model="color"></b-form-input>
+            </b-col>
+            <b-col sm="3">
+              <b-btn size="sm" v-on:click="color=50">Reset</b-btn>
+            </b-col>
+          </b-row>
+
+          <label>Visibility:</label>
+          <b-row>
+            <b-col sm="9">
+              <b-form-input type="range" min="1" max="100" v-model="visibility"></b-form-input>
+            </b-col>
+            <b-col sm="3">
+              <b-btn size="sm" v-on:click="visibility=50">Reset</b-btn>
+            </b-col>
+          </b-row>
+
+          <label>Blurry:</label>
+          <b-row>
+            <b-col sm="9">
+              <b-form-input type="range" min="1" max="100" v-model="blurry"></b-form-input>
+            </b-col>
+            <b-col sm="3">
+              <b-btn size="sm" v-on:click="blurry=50">Reset</b-btn>
+            </b-col>
+          </b-row>
+
+          <label>Shift:</label>
+          <b-row>
+            <b-col sm="9">
+              <b-form-input type="range" min="1" max="100" v-model="shift"></b-form-input>
+            </b-col>
+            <b-col sm="3">
+              <b-btn size="sm" v-on:click="shift=50">Reset</b-btn>
+            </b-col>
+          </b-row>
+        </div>
+      </b-sidebar>
     </div>
   </b-container>
 </template>
 
 <script>
 import axios from 'axios';
-import ParameterSidebar from './ParameterSidebar';
+// import ParameterSidebar from './ParameterSidebar';
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
 export default {
-  components: {
-    ParameterSidebar
-  },
+  // components: {
+  //   ParameterSidebar
+  // },
   name: 'ShowImage',
   data () {
     return {

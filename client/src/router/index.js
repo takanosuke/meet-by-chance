@@ -8,7 +8,8 @@ const routes = [
   {
     path: '/',
     name: 'ShowImage',
-    component: ShowImage
+    component: ShowImage,
+    meta: {title: 'RandomDesign', desc: 'TEST'}
   },
   {
     path: '/about',

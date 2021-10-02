@@ -57,10 +57,20 @@
 
 <script>
 export default {
-    data(){
-        return {
-          name: 'ParameterSidebar'
-        }
+  data(){
+    return {
+      name: 'ParameterSidebar'
+      density: 50,
+      visibility: 50,
+      blurry: 50,
+      shift: 50,
+      color: 50,
     }
+  },
+  methods: {
+    parameter(){
+      this
+    }
+  }
 }
 </script>
